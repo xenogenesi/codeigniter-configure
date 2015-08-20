@@ -29,13 +29,22 @@ SYSTEM_CORE_COMPAT :=  system/core/compat/mbstring.php \
         system/core/compat/standard.php
 
 SYSTEM_HELPERS :=
+SYSTEM_ENABLED :=
+SYSTEM_LIBRARIES_SESSION :=
+SYSTEM_LIBRARIES_SESSION_DRIVERS :=
 
 if ENABLE_URL_HELPER
 SYSTEM_HELPERS += system/helpers/url_helper.php
 endif
 
-SYSTEM_LIBRARIES_SESSION :=
-SYSTEM_LIBRARIES_SESSION_DRIVERS :=
+if ENABLE_FORM_HELPER
+SYSTEM_HELPERS += system/helpers/form_helper.php
+endif
+
+if ENABLE_FORM_VALIDATION
+SYSTEM_ENABLED += system/language/english/form_validation_lang.php \
+	system/libraries/Form_validation.php
+endif
 
 if ENABLE_SESSION
 SYSTEM_LIBRARIES_SESSION += system/libraries/Session/Session.php \
@@ -46,6 +55,7 @@ endif
 
 SYSTEM_ALL = $(SYSTEM_CORE) \
 		$(SYSTEM_CORE_COMPAT) \
+		$(SYSTEM_ENABLED) \
 		$(SYSTEM_LIBRARIES_SESSION) \
 		$(SYSTEM_LIBRARIES_SESSION_DRIVERS) \
 		$(SYSTEM_HELPERS)

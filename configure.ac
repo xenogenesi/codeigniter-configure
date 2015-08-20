@@ -20,31 +20,40 @@ AC_SUBST([CI_VERSION])
 
 
 AC_ARG_ENABLE([welcome],
-    AS_HELP_STRING([--enable-welcome], [Enable welcome route example @<:@default=yes@:>@]),
-    [case "${enableval}" in
-        yes) enable_welcome=true ;;
-        no)  enable_welcome=false ;;
-        *) AC_MSG_ERROR([bad value ${enableval} for --enable-welcome]) ;;
-     esac],[enable_welcome=true])
-AM_CONDITIONAL([ENABLE_WELCOME], [test x$enable_welcome = xtrue])
+    AS_HELP_STRING([--enable-welcome], [Enable Welcome example with routes @<:@default=yes@:>@]),
+    [AS_CASE(${enableval}, [yes], [], [no], [],
+             [AC_MSG_ERROR([bad value ${enableval} for --enable-welcome])])],
+    [enable_welcome=yes])
+AM_CONDITIONAL([ENABLE_WELCOME], [test x$enable_welcome = xyes])
 
 AC_ARG_ENABLE([session],
     AS_HELP_STRING([--enable-session], [Enable session library @<:@default=yes@:>@]),
-    [case "${enableval}" in
-        yes) enable_session=true ;;
-        no)  enable_session=false ;;
-        *) AC_MSG_ERROR([bad value ${enableval} for --enable-session]) ;;
-     esac],[enable_session=true])
-AM_CONDITIONAL([ENABLE_SESSION], [test x$enable_session = xtrue])
+    [AS_CASE(${enableval}, [yes], [], [no], [],
+             [AC_MSG_ERROR([bad value ${enableval} for --enable-session])])],
+    [enable_session=yes])
+AM_CONDITIONAL([ENABLE_SESSION], [test x$enable_session = xyes])
 
 AC_ARG_ENABLE([url-helper],
     AS_HELP_STRING([--enable-url-helper], [Enable Url helper @<:@default=yes@:>@]),
-    [case "${enableval}" in
-        yes) enable_url_helper=true ;;
-        no)  enable_url_helper=false ;;
-        *) AC_MSG_ERROR([bad value ${enableval} for --enable-url-helper]) ;;
-     esac],[enable_url_helper=true])
-AM_CONDITIONAL([ENABLE_URL_HELPER], [test x$enable_url_helper = xtrue])
+    [AS_CASE(${enableval}, [yes], [], [no], [],
+             [AC_MSG_ERROR([bad value ${enableval} for --enable-url-helper])])],
+    [enable_url_helper=yes])
+AM_CONDITIONAL([ENABLE_URL_HELPER], [test x$enable_url_helper = xyes])
+
+AC_ARG_ENABLE([form-helper],
+    AS_HELP_STRING([--enable-form-helper], [Enable Form helper @<:@default=yes@:>@]),
+    [AS_CASE(${enableval}, [yes], [], [no], [],
+             [AC_MSG_ERROR([bad value ${enableval} for --enable-form-helper])])],
+    [enable_form_helper=yes])
+AM_CONDITIONAL([ENABLE_FORM_HELPER], [test x$enable_form_helper = xyes])
+
+AC_ARG_ENABLE([form-validation],
+    AS_HELP_STRING([--enable-form-validation], [Enable Form Validation library @<:@default=yes@:>@]),
+    [AS_CASE(${enableval}, [yes], [], [no], [],
+             [AC_MSG_ERROR([bad value ${enableval} for --enable-form-validation])])],
+    [enable_form_validation=yes])
+AM_CONDITIONAL([ENABLE_FORM_VALIDATION], [test x$enable_form_validation = xyes])
+
 
 
 AC_OUTPUT(Makefile public_html/Makefile ci-system/Makefile ci-application/Makefile)
