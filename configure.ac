@@ -2,8 +2,12 @@ AC_INIT(codeigniter-builder, 0.1, raziel@eml.cc)
 AC_CONFIG_AUX_DIR(config)
 AM_INIT_AUTOMAKE([foreign])
 
+
+
 AC_PROG_MKDIR_P
 AC_PROG_SED
+
+
 
 AC_ARG_VAR([CI_SRCDIR], [path to CodeIgniter sources])
 if test x"$CI_SRCDIR" = x""
@@ -12,11 +16,13 @@ then
 fi
 
 
+
 AC_MSG_CHECKING([CodeIgniter version])
 dnl don't use 'define' it conflict with m4!
 CI_VERSION=$($SED -n "s/^.*efine('CI_VERSION', '\(@<:@^'@:>@*\)').*/\1/p" $CI_SRCDIR/system/core/CodeIgniter.php)
 AC_MSG_RESULT([$CI_VERSION])
 AC_SUBST([CI_VERSION])
+
 
 
 AC_ARG_ENABLE([welcome],
@@ -53,6 +59,13 @@ AC_ARG_ENABLE([form-validation],
              [AC_MSG_ERROR([bad value ${enableval} for --enable-form-validation])])],
     [enable_form_validation=yes])
 AM_CONDITIONAL([ENABLE_FORM_VALIDATION], [test x$enable_form_validation = xyes])
+
+AC_ARG_ENABLE([email],
+    AS_HELP_STRING([--enable-email], [Enable Email library @<:@default=yes@:>@]),
+    [AS_CASE(${enableval}, [yes], [], [no], [],
+             [AC_MSG_ERROR([bad value ${enableval} for --enable-email])])],
+    [enable_email=yes])
+AM_CONDITIONAL([ENABLE_EMAIL], [test x$enable_email = xyes])
 
 
 

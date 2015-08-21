@@ -46,6 +46,12 @@ SYSTEM_ENABLED += system/language/english/form_validation_lang.php \
 	system/libraries/Form_validation.php
 endif
 
+if ENABLE_EMAIL
+SYSTEM_ENABLED += system/language/english/email_lang.php \
+	system/helpers/email_helper.php \
+	system/libraries/Email.php
+endif
+
 if ENABLE_SESSION
 SYSTEM_LIBRARIES_SESSION += system/libraries/Session/Session.php \
 		system/libraries/Session/Session_driver.php
