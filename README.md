@@ -7,7 +7,14 @@ Project still in **early stage**, currently support only few options
     autogen.sh
     mkdir build && cd build
     CI_SRCDIR=/path/to/ci-src ../configure --prefix=/path/to/install \
-               --enable-welcome --enable-session --enable-url-helper
+            --enable-welcome \
+            --enable-session=files \
+            --enable-url-helper \
+            --enable-form-helper \
+            --enable-form-validation \
+            --enable-email \
+            --enable-database=sqlite3 \
+            --enable-dbforge
     make install
 
 Current minimal installation:

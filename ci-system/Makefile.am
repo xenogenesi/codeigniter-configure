@@ -53,10 +53,30 @@ SYSTEM_ENABLED += system/language/english/email_lang.php \
 endif
 
 if ENABLE_SESSION
-SYSTEM_LIBRARIES_SESSION += system/libraries/Session/Session.php \
+SYSTEM_ENABLED += system/libraries/Session/Session.php \
 		system/libraries/Session/Session_driver.php
+endif
 
-SYSTEM_LIBRARIES_SESSION_DRIVERS += system/libraries/Session/drivers/Session_files_driver.php
+if ENABLE_SESSION_FILES
+SYSTEM_ENABLED += system/libraries/Session/drivers/Session_files_driver.php
+endif
+
+if ENABLE_DATABASE
+SYSTEM_ENABLED += system/database/DB.php \
+	system/database/DB_driver.php
+endif
+
+if ENABLE_DBFORGE
+SYSTEM_ENABLED += system/database/DB_forge.php
+
+if ENABLE_SQLITE3
+SYSTEM_ENABLED += system/database/drivers/sqlite3/sqlite3_forge.php
+endif
+endif
+
+
+if ENABLE_SQLITE3
+SYSTEM_ENABLED += system/database/drivers/sqlite3/sqlite3_driver.php
 endif
 
 SYSTEM_ALL = $(SYSTEM_CORE) \
