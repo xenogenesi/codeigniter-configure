@@ -14,7 +14,8 @@ Project still in **early stage**, currently support only few options
             --enable-form-validation \
             --enable-email \
             --enable-database=sqlite3 \
-            --enable-dbforge
+            --enable-dbforge \
+            --enable-cache=dummy,apc,memcache,file
     make install
 
 Current minimal installation:

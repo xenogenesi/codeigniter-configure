@@ -78,6 +78,11 @@ AC_ARG_ENABLE([url-helper],
     [enable_url_helper=no])
 AM_CONDITIONAL([ENABLE_URL_HELPER], [test x$enable_url_helper = xyes])
 
+AC_ARG_ENABLE([file-helper],
+    AS_HELP_STRING([--enable-file-helper], [Enable File helper @<:@default=no@:>@]),
+    [AS_CASE(${enableval}, [yes], [], [no], [],
+             [AC_MSG_ERROR([bad value ${enableval} for --enable-file-helper])])],
+    [enable_file_helper=no])
 
 AC_ARG_ENABLE([form-helper],
     AS_HELP_STRING([--enable-form-helper], [Enable Form helper @<:@default=no@:>@]),
@@ -141,6 +146,66 @@ AM_CONDITIONAL([ENABLE_DATABASE], [test x$enable_database = xyes])
 AM_CONDITIONAL([ENABLE_SQLITE3], [test x$enable_sqlite3 = xyes])
 AM_CONDITIONAL([ENABLE_MYSQLI], [test x$enable_mysqli = xyes])
 
+
+AC_ARG_ENABLE([cache],
+    AS_HELP_STRING([--enable-cache], [Enable Cache @<:@default=no@:>@]),
+    [],
+    [enable_cache=no])
+
+save_IFS="$IFS"
+IFS=","
+enable_cache_dummy=no
+enable_cache_file=no
+enable_cache_memcached=no
+enable_cache_apc=no
+for option in $enable_cache; do
+    case "$option" in
+        yes|all)
+                enable_cache_dummy=yes
+                enable_cache_file=yes
+                enable_cache_memcached=yes
+                enable_cache_apc=yes
+                enable_cache=yes
+                ;;
+        no|none)
+                ;;
+        dummy)
+                enable_cache_dummy=yes
+                enable_cache=yes
+                ;;
+        file)
+                enable_cache_file=yes
+                enable_cache=yes
+                ;;
+        memcached)
+                enable_cache_memcached=yes
+                enable_cache=yes
+                ;;
+        apc)
+                enable_cache_apc=yes
+                enable_cache=yes
+                ;;
+        *)
+                IFS="$save_IFS"
+                AC_MSG_ERROR([Unknown value $option for --enable-cache])
+                IFS=","
+                ;;
+    esac
+done
+IFS="$save_IFS"
+AM_CONDITIONAL([ENABLE_CACHE_DUMMY], [test x$enable_cache_dummy = xyes])
+AM_CONDITIONAL([ENABLE_CACHE_FILE], [test x$enable_cache_file = xyes])
+AM_CONDITIONAL([ENABLE_CACHE_MEMCACHED], [test x$enable_cache_memcached = xyes])
+AM_CONDITIONAL([ENABLE_CACHE_APC], [test x$enable_cache_apc = xyes])
+AM_CONDITIONAL([ENABLE_CACHE], [test x$enable_cache = xyes])
+
+if test x$enable_cache_file = xyes ; then
+   enable_file_helper=yes
+fi
+
+AM_CONDITIONAL([ENABLE_FILE_HELPER], [test x$enable_file_helper = xyes])
+
+
 AC_ARG_ENABLE([dbforge],
     AS_HELP_STRING([--enable-dbforge], [Enable DB Forge @<:@default=no@:>@]),
     [AS_CASE(${enableval}, [yes], [], [no], [],
@@ -149,7 +214,7 @@ AC_ARG_ENABLE([dbforge],
 AM_CONDITIONAL([ENABLE_DBFORGE], [test x$enable_dbforge = xyes])
 
 if test x$enable_dbforge = xyes -a x$enable_database = xno ; then
-    AC_MSG_WARN([enabling dbforge without a database backend doesn't make sense])
+    AC_MSG_WARN([enabled dbforge without a database backend])
 fi
 
 

@@ -79,6 +79,34 @@ if ENABLE_SQLITE3
 SYSTEM_ENABLED += system/database/drivers/sqlite3/sqlite3_driver.php
 endif
 
+# TODO cache require it, which others?
+SYSTEM_ENABLED += system/libraries/Driver.php
+
+if ENABLE_CACHE
+SYSTEM_ENABLED += system/libraries/Cache/Cache.php
+endif
+
+if ENABLE_CACHE_DUMMY
+SYSTEM_ENABLED += system/libraries/Cache/drivers/Cache_dummy.php
+endif
+
+if ENABLE_CACHE_FILE
+SYSTEM_ENABLED += system/libraries/Cache/drivers/Cache_file.php
+endif
+
+if ENABLE_CACHE_MEMCACHED
+SYSTEM_ENABLED += system/libraries/Cache/drivers/Cache_memcached.php
+endif
+
+if ENABLE_CACHE_APC
+SYSTEM_ENABLED += system/libraries/Cache/drivers/Cache_apc.php
+endif
+
+
+if ENABLE_FILE_HELPER
+SYSTEM_ENABLED += system/helpers/file_helper.php
+endif
+
 SYSTEM_ALL = $(SYSTEM_CORE) \
 		$(SYSTEM_CORE_COMPAT) \
 		$(SYSTEM_ENABLED) \
