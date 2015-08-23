@@ -3,6 +3,8 @@ MAKEFLAGS = --no-builtin-rules
 SUFFIXES:
 SUFFIXES: %.php
 
+APP_ENABLED :=
+
 APP_CONFIG := config/constants.php
 
 APP_CONFIG += config/config.php
@@ -22,7 +24,12 @@ APP_VIEWS_ERRORS_HTML := views/errors/html/error_php.php \
         views/errors/html/error_exception.php \
         views/errors/html/error_404.php
 
+if ENABLE_CACHE_MEMCACHED
+APP_ENABLED += config/memcached.php
+endif
+
 APP_ALL := $(APP_CONFIG) \
+	$(APP_ENABLED) \
 	$(APP_VIEWS) \
 	$(APP_VIEWS_ERRORS_HTML) \
 	$(APP_CONTROLLERS)
