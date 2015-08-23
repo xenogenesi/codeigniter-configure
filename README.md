@@ -10,6 +10,7 @@ Project still in **early stage**, currently support only few options
             --enable-welcome \
             --enable-session=files \
             --enable-url-helper \
+            --enable-file-helper \
             --enable-form-helper \
             --enable-form-validation \
             --enable-email \
